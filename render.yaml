@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: parqueadero-django
+    env: python
+    plan: free
+    rootDir: mi_proyecto_django
+    buildCommand: ./build.sh
+    startCommand: gunicorn config.wsgi:application
+    envVars:
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
