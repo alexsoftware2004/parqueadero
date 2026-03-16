@@ -1,0 +1,146 @@
+:root {
+    color-scheme: light;
+    --font-sans: "Poppins", sans-serif;
+    --radius-sm: 14px;
+    --radius-md: 18px;
+    --radius-lg: 24px;
+    --radius-xl: 32px;
+    --shadow-sm: 0 12px 32px rgba(16, 32, 51, 0.08);
+    --shadow-lg: 0 24px 80px rgba(0, 0, 0, 0.18);
+    --surface-0: #f4f7fb;
+    --surface-1: #ffffff;
+    --surface-2: #eef3f9;
+    --surface-3: #f8fbef;
+    --text-strong: #13233b;
+    --text-base: #22344e;
+    --text-muted: #62738d;
+    --border-soft: #d9e3ef;
+    --border-strong: #c6d4e4;
+    --brand: #82cc0e;
+    --brand-strong: #5f960c;
+    --brand-soft: #b8ea6d;
+    --warning: #ffd166;
+    --warning-soft: #fff0ad;
+    --info: #5ca9ff;
+    --overlay-brand: rgba(130, 204, 14, 0.14);
+    --overlay-info: rgba(92, 169, 255, 0.14);
+    --overlay-panel: rgba(255, 255, 255, 0.72);
+    --page-gradient:
+        radial-gradient(circle at top left, rgba(130, 204, 14, 0.16), transparent 28%),
+        radial-gradient(circle at top right, rgba(92, 169, 255, 0.14), transparent 24%),
+        linear-gradient(180deg, #edf3f9 0%, #f7fafc 100%);
+}
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-0: #07111f;
+    --surface-1: #0d1828;
+    --surface-2: #101f34;
+    --surface-3: #13243b;
+    --text-strong: #ecf3ff;
+    --text-base: #d7e4f8;
+    --text-muted: #9db0cf;
+    --border-soft: rgba(152, 182, 255, 0.18);
+    --border-strong: rgba(152, 182, 255, 0.24);
+    --overlay-brand: rgba(130, 204, 14, 0.18);
+    --overlay-info: rgba(92, 169, 255, 0.16);
+    --overlay-panel: rgba(13, 24, 40, 0.78);
+    --page-gradient:
+        radial-gradient(circle at top left, rgba(130, 204, 14, 0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(92, 169, 255, 0.16), transparent 24%),
+        linear-gradient(160deg, #030813 0%, #081526 55%, #0b1a2b 100%);
+    --shadow-sm: 0 12px 32px rgba(0, 0, 0, 0.25);
+    --shadow-lg: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) {
+        color-scheme: dark;
+        --surface-0: #07111f;
+        --surface-1: #0d1828;
+        --surface-2: #101f34;
+        --surface-3: #13243b;
+        --text-strong: #ecf3ff;
+        --text-base: #d7e4f8;
+        --text-muted: #9db0cf;
+        --border-soft: rgba(152, 182, 255, 0.18);
+        --border-strong: rgba(152, 182, 255, 0.24);
+        --overlay-brand: rgba(130, 204, 14, 0.18);
+        --overlay-info: rgba(92, 169, 255, 0.16);
+        --overlay-panel: rgba(13, 24, 40, 0.78);
+        --page-gradient:
+            radial-gradient(circle at top left, rgba(130, 204, 14, 0.18), transparent 28%),
+            radial-gradient(circle at top right, rgba(92, 169, 255, 0.16), transparent 24%),
+            linear-gradient(160deg, #030813 0%, #081526 55%, #0b1a2b 100%);
+        --shadow-sm: 0 12px 32px rgba(0, 0, 0, 0.25);
+        --shadow-lg: 0 24px 80px rgba(0, 0, 0, 0.35);
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-sans);
+    color: var(--text-base);
+    background: var(--page-gradient);
+    transition: background-color 0.25s ease, color 0.25s ease, background-image 0.25s ease;
+}
+
+a {
+    color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--border-soft);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--surface-1) 82%, transparent);
+    color: var(--text-base);
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+    transform: translateY(-1px);
+    border-color: var(--border-strong);
+}
+
+.theme-toggle__icon {
+    width: 18px;
+    height: 18px;
+    display: inline-grid;
+    place-items: center;
+}
+
+.surface-card {
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--surface-1) 86%, transparent);
+    box-shadow: var(--shadow-sm);
+}
+
+.eyebrow {
+    margin: 0 0 14px;
+    color: var(--brand-strong);
+    font-size: 0.86rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}

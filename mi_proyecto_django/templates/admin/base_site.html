@@ -1,0 +1,26 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'shared/css/global.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/admin-branding.css' %}">
+<script src="{% static 'shared/js/theme.js' %}" defer></script>
+{% endblock %}
+
+{% block title %}ParkingHub Admin{% endblock %}
+
+{% block branding %}
+<div class="admin-branding">
+    <div class="admin-branding__badge">P</div>
+    <div>
+        <h1 id="site-name"><a href="{% url 'admin:index' %}">ParkingHub Admin</a></h1>
+        <p class="admin-branding__subtitle">Centro de control para operaciones de parqueadero</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

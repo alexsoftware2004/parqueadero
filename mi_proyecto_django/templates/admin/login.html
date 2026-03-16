@@ -1,0 +1,49 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block bodyclass %}{{ block.super }} login parkinghub-login{% endblock %}
+
+{% block content %}
+<div class="login-shell">
+    <section class="login-panel">
+        <div class="login-panel__intro">
+            <p class="admin-home__eyebrow">Acceso seguro</p>
+            <h1>Ingresa al centro de control del parqueadero.</h1>
+            <p>
+                Usa tu cuenta operativa para administrar cupos, registrar ingresos y revisar el equipo de trabajo.
+            </p>
+            <ul class="login-benefits">
+                <li>Movimientos y cupos en un solo panel</li>
+                <li>Tarifas, empleados y vehiculos centralizados</li>
+                <li>Trazabilidad completa desde el admin</li>
+            </ul>
+        </div>
+
+        <div class="login-panel__form">
+            {% if form.errors and not form.non_field_errors %}
+                <p class="errornote">Corrige el dato marcado e intenta de nuevo.</p>
+            {% endif %}
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <p class="errornote">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+
+            <form action="{{ app_path }}" method="post" id="login-form">
+                {% csrf_token %}
+                <div class="form-row">
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                </div>
+                <div class="form-row">
+                    {{ form.password.label_tag }}
+                    {{ form.password }}
+                </div>
+                <div class="submit-row">
+                    <input type="submit" value="Iniciar sesion">
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+{% endblock %}

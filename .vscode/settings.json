@@ -1,0 +1,6 @@
+{
+  "python.defaultInterpreterPath": "c:/laragon/www/preuba_django/mi_proyecto_django/env/Scripts/python.exe",
+  "python.analysis.extraPaths": [
+    "c:/laragon/www/preuba_django/mi_proyecto_django"
+  ]
+}

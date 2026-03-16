@@ -1,0 +1,257 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParkingHub | Sistema de Parqueaderos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'shared/css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/inicio.css' %}">
+    <script src="{% static 'shared/js/theme.js' %}" defer></script>
+</head>
+<body>
+    <div class="page-shell">
+        <header class="hero">
+            <nav class="topbar">
+                <div class="brand">
+                    <span class="brand__badge">P</span>
+                    <div>
+                        <p class="brand__name">ParkingHub</p>
+                        <p class="brand__tag">Operacion centralizada de parqueaderos</p>
+                    </div>
+                </div>
+                <div class="topbar__actions">
+                    <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
+                        <span class="theme-toggle__icon" data-theme-icon>?</span>
+                        <span data-theme-label>Modo claro</span>
+                    </button>
+                    <a class="admin-link" href="/admin/core/movimiento/add/">Registrar entrada</a>
+                    <a class="admin-link admin-link--solid" href="/admin/">Abrir panel</a>
+                </div>
+            </nav>
+
+            <section class="hero__content">
+                <div class="hero__copy">
+                    <p class="eyebrow">Control en tiempo real</p>
+                    <h1>Una operacion mas clara para ingresos, cupos, personal y recaudo.</h1>
+                    <p class="hero__text">
+                        Esta vista ya no es una portada vacia: resume el estado operativo y te lleva directo a
+                        las acciones que el equipo necesita durante un turno.
+                    </p>
+                    <div class="hero__actions">
+                        <a class="button button--primary" href="/admin/core/movimiento/add/">Registrar ingreso</a>
+                        <a class="button button--ghost" href="#arranque">Configurar sistema</a>
+                    </div>
+                    <div class="hero__summary">
+                        <article>
+                            <strong>{{ resumen.vehiculos_registrados }}</strong>
+                            <span>Vehiculos registrados</span>
+                        </article>
+                        <article>
+                            <strong>{{ resumen.tarifas_activas }}</strong>
+                            <span>Tarifas activas</span>
+                        </article>
+                        <article>
+                            <strong>{{ resumen.movimientos_abiertos }}</strong>
+                            <span>Movimientos abiertos</span>
+                        </article>
+                        <article>
+                            <strong>{{ resumen.empleados_activos }}</strong>
+                            <span>Empleados activos</span>
+                        </article>
+                    </div>
+                </div>
+
+                <aside class="status-card">
+                    <p class="status-card__title">Estado operativo</p>
+                    <div class="status-card__grid">
+                        {% for item in estadisticas %}
+                            <article class="metric">
+                                <strong>{{ item.valor }}</strong>
+                                <span>{{ item.etiqueta }}</span>
+                            </article>
+                        {% endfor %}
+                    </div>
+                    <div class="status-card__footer">
+                        <span class="status-dot"></span>
+                        <p>Datos conectados al estado real de cupos, vehiculos, empleados y movimientos</p>
+                    </div>
+                </aside>
+            </section>
+        </header>
+
+        <main class="landing-main">
+            {% if sistema_vacio %}
+                <section class="section" id="arranque">
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow">Arranque guiado</p>
+                            <h2>El sistema esta vacio. Estas son las cuatro acciones para dejarlo util desde hoy.</h2>
+                        </div>
+                    </div>
+                    <div class="setup-grid">
+                        {% for paso in pasos_iniciales %}
+                            <article class="setup-step">
+                                <span class="setup-step__index">{{ paso.titulo }}</span>
+                                <p>{{ paso.descripcion }}</p>
+                                <a href="{{ paso.ruta }}">Ir ahora</a>
+                            </article>
+                        {% endfor %}
+                    </div>
+                </section>
+            {% endif %}
+
+            <section class="section section--features" id="modulos">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Accesos utiles</p>
+                        <h2>Las tareas frecuentes quedan a un clic y con mejor contexto.</h2>
+                    </div>
+                    <a class="section-link" href="/admin/">Abrir centro administrativo</a>
+                </div>
+                <div class="feature-grid">
+                    {% for modulo in modulos %}
+                        <article class="feature-card">
+                            <div class="feature-card__index">0{{ forloop.counter }}</div>
+                            <h3>{{ modulo.titulo }}</h3>
+                            <p>{{ modulo.descripcion }}</p>
+                            <a class="feature-card__link" href="{{ modulo.ruta }}">{{ modulo.cta }}</a>
+                        </article>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="section section--actions">
+                <article class="support-card">
+                    <div>
+                        <p class="eyebrow">Flujo sugerido</p>
+                        <h3>Como deberia trabajar un operador en turno</h3>
+                    </div>
+                    <div class="workflow-grid">
+                        <article class="workflow-card">
+                            <strong>Entrada</strong>
+                            <p>Registrar vehiculo, cupo y tarifa en menos de un minuto.</p>
+                        </article>
+                        <article class="workflow-card">
+                            <strong>Seguimiento</strong>
+                            <p>Revisar ocupacion por zona y movimientos abiertos sin cambiar de pantalla.</p>
+                        </article>
+                        <article class="workflow-card">
+                            <strong>Salida</strong>
+                            <p>Finalizar el movimiento y liberar el cupo con trazabilidad.</p>
+                        </article>
+                    </div>
+                </article>
+            </section>
+
+            <section class="section section--operations" id="operacion">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Ocupacion por zona</p>
+                        <h2>Detecta saturacion y disponibilidad antes de que afecte la atencion.</h2>
+                    </div>
+                </div>
+                <div class="zones-grid">
+                    {% for zona in zonas %}
+                        <article class="zone-card">
+                            <div class="zone-card__header">
+                                <h3>{{ zona.nombre }}</h3>
+                                <span>{{ zona.porcentaje }}% ocupado</span>
+                            </div>
+                            <div class="progress">
+                                <span style="width: {{ zona.porcentaje }}%"></span>
+                            </div>
+                            <dl class="zone-card__stats">
+                                <div>
+                                    <dt>Total</dt>
+                                    <dd>{{ zona.total }}</dd>
+                                </div>
+                                <div>
+                                    <dt>Disponibles</dt>
+                                    <dd>{{ zona.disponibles }}</dd>
+                                </div>
+                                <div>
+                                    <dt>Ocupados</dt>
+                                    <dd>{{ zona.ocupados }}</dd>
+                                </div>
+                            </dl>
+                        </article>
+                    {% empty %}
+                        <article class="empty-card">
+                            <h3>No hay cupos registrados todavia</h3>
+                            <p>Crea los cupos desde el admin para activar esta vista y medir ocupacion real.</p>
+                            <a class="button button--primary" href="/admin/core/cupo/add/">Crear primer cupo</a>
+                        </article>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="section section--split">
+                <article class="panel panel--table">
+                    <div class="panel__head">
+                        <div>
+                            <p class="eyebrow">Movimientos recientes</p>
+                            <h2>Ultima actividad registrada</h2>
+                        </div>
+                        <a class="section-link" href="/admin/core/movimiento/">Ver todo</a>
+                    </div>
+                    {% if recientes %}
+                        <div class="activity-table">
+                            <div class="activity-table__head">
+                                <span>Placa</span>
+                                <span>Cupo</span>
+                                <span>Estado</span>
+                                <span>Entrada</span>
+                            </div>
+                            {% for movimiento in recientes %}
+                                <div class="activity-table__row">
+                                    <span>{{ movimiento.vehiculo.placa }}</span>
+                                    <span>{{ movimiento.cupo.codigo }}</span>
+                                    <span class="badge badge--{{ movimiento.estado }}">{{ movimiento.get_estado_display }}</span>
+                                    <span>{{ movimiento.fecha_entrada|date:"d/m/Y H:i" }}</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="empty-card empty-card--compact">
+                            <h3>Sin movimientos todavia</h3>
+                            <p>Empieza creando el primer ingreso para activar el seguimiento operativo.</p>
+                        </div>
+                    {% endif %}
+                </article>
+
+                <article class="panel panel--insights">
+                    <div class="panel__head">
+                        <div>
+                            <p class="eyebrow">Parque automotor</p>
+                            <h2>Distribucion de vehiculos activos</h2>
+                        </div>
+                    </div>
+                    {% if distribucion_vehiculos %}
+                        <div class="insight-list">
+                            {% for item in distribucion_vehiculos %}
+                                <div class="insight-row">
+                                    <div>
+                                        <strong>{{ item.label }}</strong>
+                                        <span>{{ item.total }} registrados</span>
+                                    </div>
+                                    <a href="/admin/core/vehiculo/?tipo={{ item.tipo }}">Filtrar</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="empty-card empty-card--compact">
+                            <h3>No hay vehiculos registrados</h3>
+                            <p>Agrega vehiculos al sistema para mejorar la busqueda y el control de entradas.</p>
+                            <a class="button button--ghost" href="/admin/core/vehiculo/add/">Crear vehiculo</a>
+                        </div>
+                    {% endif %}
+                </article>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

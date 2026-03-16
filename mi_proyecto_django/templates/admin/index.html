@@ -1,0 +1,55 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="admin-home">
+    <section class="admin-home__hero">
+        <div>
+            <p class="admin-home__eyebrow">Centro operativo</p>
+            <h1>Administra cupos, ingresos, empleados y tarifas desde una vista mas guiada.</h1>
+            <p class="admin-home__text">
+                Este panel esta pensado para reducir pasos: abre tareas frecuentes, revisa los modulos activos
+                y entra rapido a las acciones del turno.
+            </p>
+        </div>
+        <div class="admin-home__quick">
+            <a class="button" href="{% url 'admin:core_movimiento_add' %}">Registrar ingreso</a>
+            <a class="button secondary" href="{% url 'admin:core_cupo_changelist' %}">Ver cupos</a>
+            <a class="button secondary" href="{% url 'admin:core_empleado_changelist' %}">Ver empleados</a>
+        </div>
+    </section>
+
+    <section class="admin-home__grid">
+        <article class="admin-card">
+            <div class="admin-card__head">
+                <p class="admin-home__eyebrow">Accesos rapidos</p>
+                <h2>Tareas del dia</h2>
+            </div>
+            <div class="shortcut-list">
+                <a href="{% url 'admin:core_movimiento_add' %}">Crear movimiento</a>
+                <a href="{% url 'admin:core_cupo_add' %}">Registrar cupo</a>
+                <a href="{% url 'admin:core_tarifa_add' %}">Crear tarifa</a>
+                <a href="{% url 'admin:core_empleado_add' %}">Agregar empleado</a>
+                <a href="{% url 'admin:core_vehiculo_add' %}">Registrar vehiculo</a>
+            </div>
+        </article>
+
+        <article class="admin-card admin-card--wide">
+            <div class="admin-card__head">
+                <p class="admin-home__eyebrow">Modulos del sistema</p>
+                <h2>Gestion disponible en el panel</h2>
+            </div>
+            <div class="module-grid">
+                {% for app in app_list %}
+                    {% for model in app.models %}
+                        <a class="module-tile" href="{{ model.admin_url|default:'#' }}">
+                            <strong>{{ model.name }}</strong>
+                            <span>{{ app.name }}</span>
+                        </a>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </article>
+    </section>
+</div>
+{% endblock %}
